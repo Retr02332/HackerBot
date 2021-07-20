@@ -23,6 +23,8 @@ Solved by:  [Carlos Bello (Retr02332)](https://github.com/Retr02332)
 
 **Changes:**
 * https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L27
+* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L100
+* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L131
 * https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L54-L58
 * https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L125-L129 
 
