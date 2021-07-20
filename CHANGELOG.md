@@ -23,8 +23,8 @@ Solved by:  [Carlos Bello (Retr02332)](https://github.com/Retr02332)
 
 **Changes:**
 * https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L27
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L54-58
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L125-129 
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L54-L58
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L125-L129 
 
 **2.3** All alphabetic user input is normalized to lowercase. Failure to do so caused an error, as the hackerone API expects to receive such lowercase entries in order to operate correctly.
 * https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L44
