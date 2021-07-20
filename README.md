@@ -1,5 +1,5 @@
 
-## HackerBot (Hackerone Statistics)
+# HackerBot (Hackerone Statistics)
 
 ## Description
 
@@ -29,5 +29,13 @@ If you want to see the errors reported in a specific program **(AT&T in our exam
 /programs weak_unique att
 ```
 If you want to know how the other commands work, just go into [HackerBot](http://t.me/Hackerone_Statistics_bot) on telegram and use the **/help** command.
+
+
+
+## Upgrades
+
+I have several ideas to implement in the BOT in the future. When that happens I will stop the server. That is why I will put a notice in the **README.md** so you can be aware that there is a maintenance or upgrade in progress.
+
+Note that **if you are new to the BOT** or if you have **released an update for [HackerBot](http://t.me/Hackerone_Statistics_bot)** you must **re-configure the BOT** as explained here => [How to configure HackerBot](https://github.com/Retr02332/HackerBot#description).
 
 #### Made with love by Retr0
