@@ -32,7 +32,7 @@ If you want to know how the other commands work, just go into [HackerBot](http:/
 
 
 
-## Upgrades
+## Updates
 
 I have several ideas to implement in the BOT in the future. When that happens I will stop the server. That is why I will put a notice in the **README.md** so you can be aware that there is a maintenance or upgrade in progress.
 
