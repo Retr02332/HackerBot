@@ -8,8 +8,8 @@ const httpUtils = require('./Utils/Http_Utils.js');
 const parsers = require('./Parsers/parsers.js');
 const text = require('./Text/Text.js');
 
-let h1_users = {};
-let tokens = {};
+let h1_users  = {};
+let h1_tokens = {};
 
 // Debug
 bot.on("polling_error", console.log);
@@ -31,7 +31,7 @@ bot.onText(/\/config/, (msg) => {
     try {
         if( (h1_user === undefined) || (h1_token === undefined) ) { throw "You have not introduced any arguments" }
         h1_users[msg.chat.id] = h1_user;
-        tokens[msg.chat.id] = h1_token;
+        h1_tokens[msg.chat.id] = h1_token;
     }
     catch(error) {
         success = false;
@@ -41,17 +41,23 @@ bot.onText(/\/config/, (msg) => {
 });
 
 bot.onText(/\/reports/, (msg) => {
-    option = msg.text.split(" ")[1];
+    option = msg.text.split(" ")[1].toLowerCase();
 
     if(option === "all") {
         httpUtils.requestToApi(...[
             api.endpoints.reports.all,
             h1_users[msg.chat.id],
-            tokens[msg.chat.id],
+            h1_tokens[msg.chat.id],
             parsers.parseReports
         ])
-        .then(response => bot.sendMessage(msg.chat.id, response))
-        .catch(error   => bot.sendMessage(msg.chat.id, error))
+        .then(response => {
+            // Telegram API only allows me to send 10 reports per message.
+            let reports = response.split("SPLIT_HERE");
+            for(ten_reports of reports) {
+                bot.sendMessage(msg.chat.id, ten_reports);
+            }
+        })
+        .catch(error => bot.sendMessage(msg.chat.id, error))
     }
     else if(option === "unique") {
         Report_ID = msg.text.split(" ")[2];
@@ -59,11 +65,11 @@ bot.onText(/\/reports/, (msg) => {
         httpUtils.requestToApi(...[
             api.endpoints.reports.unique.replace("ID", Report_ID),
             h1_users[msg.chat.id],
-            tokens[msg.chat.id],
+            h1_tokens[msg.chat.id],
             parsers.parseReports
         ])
         .then(response => bot.sendMessage(msg.chat.id, response))
-        .catch(error   => bot.sendMessage(msg.chat.id, error))
+        .catch(error => bot.sendMessage(msg.chat.id, error))
     }
     else {
         bot.sendMessage(msg.chat.id, "`Wrong option`", {parse_mode : "Markdown"});
@@ -74,7 +80,7 @@ bot.onText(/\/balance/, (msg) => {
     httpUtils.requestToApi(...[
         api.endpoints.balance.current,
         h1_users[msg.chat.id],
-        tokens[msg.chat.id],
+        h1_tokens[msg.chat.id],
         parsers.parseBalance
     ])
     .then(response => bot.sendMessage(msg.chat.id, response, {parse_mode : "Markdown"}))
@@ -85,7 +91,7 @@ bot.onText(/\/earnings/, (msg) => {
     httpUtils.requestToApi(...[
         api.endpoints.earnings.all,
         h1_users[msg.chat.id],
-        tokens[msg.chat.id],
+        h1_tokens[msg.chat.id],
         parsers.parseEarnings
     ])
     .then(response => bot.sendMessage(msg.chat.id, response))
@@ -96,7 +102,7 @@ bot.onText(/\/payouts/, (msg) => {
     httpUtils.requestToApi(...[
         api.endpoints.payouts.all,
         h1_users[msg.chat.id],
-        tokens[msg.chat.id],
+        h1_tokens[msg.chat.id],
         parsers.parsePayouts
     ])
     .then(response => bot.sendMessage(msg.chat.id, response))
@@ -104,37 +110,49 @@ bot.onText(/\/payouts/, (msg) => {
 });
 
 bot.onText(/\/programs/, (msg) => {
-    option = msg.text.split(" ")[1];
+    option = msg.text.split(" ")[1].toLowerCase();
 
     if(option === "weak_unique") {
-        programName = msg.text.split(" ")[2];
+        programName = msg.text.split(" ")[2].toLowerCase();
 
         response = httpUtils.requestToApi(...[
             api.endpoints.programs.weaknesses_unique.replace("HANDLE", programName),
             h1_users[msg.chat.id],
-            tokens[msg.chat.id],
+            h1_tokens[msg.chat.id],
             parsers.parseWeaks
         ])
-        .then(response => bot.sendMessage(msg.chat.id, response))
+        .then(response => {
+            // Telegram API only allows me to send 25 programs per message.
+            let programs = response.split("SPLIT_HERE");
+            for(twenty_five_programs of programs) {
+                bot.sendMessage(msg.chat.id, twenty_five_programs);
+            }
+        })
         .catch(error   => bot.sendMessage(msg.chat.id, error))
     }
     else if(option === "all") {
         response = httpUtils.requestToApi(...[
             api.endpoints.programs.all,
             h1_users[msg.chat.id],
-            tokens[msg.chat.id],
+            h1_tokens[msg.chat.id],
             parsers.parsePrograms
         ])
-        .then(response => bot.sendMessage(msg.chat.id, response))
+        .then(response => {
+            // Telegram API only allows me to send 25 programs per message.
+            let programs = response.split("SPLIT_HERE");
+            for(twenty_five_programs of programs) {
+                bot.sendMessage(msg.chat.id, twenty_five_programs);
+            }
+        })
         .catch(error   => bot.sendMessage(msg.chat.id, error))
     }
     else if(option === "unique") {
-        programName = msg.text.split(" ")[2];
+        programName = msg.text.split(" ")[2].toLowerCase();
 
         response = httpUtils.requestToApi(...[
             api.endpoints.programs.unique.replace("HANDLE", programName),
             h1_users[msg.chat.id],
-            tokens[msg.chat.id],
+            h1_tokens[msg.chat.id],
             parsers.parsePrograms
         ])
         .then(response => bot.sendMessage(msg.chat.id, response))

@@ -1,29 +1,32 @@
 const strUtils = require('../Utils/StringUtils.js');
 
 const parseReports = ({data}) => {
+    let permissionsToSplit = true;
     let cleanReports = "";
     let reports = data;
-    let count = 1
+    let count = 0
 
     if( !(reports instanceof Array) ) { reports = [reports] }
+    if(reports.length === 10) { permissionsToSplit = false; }
 
     for(let report of reports) {
         template = `\
-Report #${count}
+Report #${count+1}
 
             ID: ${report.id}
             URL: https://hackerone.com/reports/${report.id}
             Title: ${strUtils.cutString(report.attributes.title)}
             State: ${report.attributes.state}
-            Score: ${report.relationships.severity.data.attributes.rating} (${report.relationships.severity.data.attributes.score || ''})
+            Score: ${(report.relationships.severity && report.relationships.severity.data.attributes.rating) || "unspecified"} (${report.relationships.severity && report.relationships.severity.data.attributes.score || ''})
             Reported by: ${report.relationships.reporter.data.attributes.name} (${report.relationships.reporter.data.attributes.username})
             Reported to: ${strUtils.capitalizeFirstLetter(report.relationships.program.data.attributes.handle)}
             Vulnerability: ${report.relationships.weakness.data.attributes.name}
             Created_at: ${report.attributes.created_at}\n\n`
         cleanReports += template;
         count++;
+        if( (permissionsToSplit) && ((count !== 0) && (count % 10) == 0) ) { cleanReports += "SPLIT_HERE\n\n" }
     }
-    return cleanReports;
+    return cleanReports
 }
 
 const parseBalance = ({balance}) => {
@@ -78,19 +81,23 @@ Payout #${count}
     }
 }
 
-const parseWeaks = (weaks) => {
+const parseWeaks = ({data}) => {
+    let permissionsToSplit = true;
     let cleanWeaks= "";
-    let count = 1
+    let weaks = data;
+    let count = 0
 
-    if(weaks.data.length !== 0) {
-        for(let weak of weaks.data) {
+    if(weaks.length !== 0) {
+        if(weaks.length === 54) { permissionsToSplit = false; }
+        for(let weak of weaks) {
             template = `\
-Weak #${count}
+Weak #${count+1}
 
             ID: ${weak.id}
             Type: ${strUtils.cutString(weak.attributes.name)}\n\n`
             cleanWeaks += template;
             count++;
+            if( (permissionsToSplit) && ((count !== 0) && (count % 54) == 0) ) { cleanWeaks += "SPLIT_HERE\n\n" }
         }
         return cleanWeaks;
     }
@@ -100,15 +107,18 @@ Weak #${count}
 }
 
 const parsePrograms = (programs) => {
+    let permissionsToSplit = true;
     let cleanPrograms = "";
-    let count = 1
+    let count = 0
 
     if(programs.data) { programs = programs.data }
     else { programs = [programs] }
 
+    if(programs.length === 25) { permissionsToSplit = false; }
+
     for(let program of programs) {
         template = `\
-Program #${count}
+Program #${count+1}
 
         ID: ${program.id}
         Program: ${strUtils.cutString(strUtils.capitalizeFirstLetter(program.attributes.name))}
@@ -118,6 +128,7 @@ Program #${count}
         Bounty Splitting: ${program.attributes.allows_bounty_splitting}\n\n`
         cleanPrograms += template;
         count++;
+        if( (permissionsToSplit) && ((count !== 0) && (count % 25) == 0) ) { cleanPrograms += "SPLIT_HERE\n\n" }
     }
     return cleanPrograms;
 }
