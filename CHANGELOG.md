@@ -6,6 +6,21 @@
 
 **1.1** Changed the name of the variable `tokens` to `h1_tokens` to make it easier to read and understand.
 
+Added by: [Carlos Bello (Retr02332)](https://github.com/Retr02332)
+
+**Additions:**
+
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L12
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L34
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L50
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L68
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L83
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L94
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L105
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L121
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L137
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L155
+
 ### Bug Fixes
 
 **2.**
