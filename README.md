@@ -38,6 +38,6 @@ I have several ideas to implement in the BOT in the future. When that happens I 
 
 Note that **if you are new to the BOT** or if I have **released an update for [HackerBot](http://t.me/Hackerone_Statistics_bot)** you must **re-configure the BOT** as explained here:
 
-  * [How to configure HackerBot](https://github.com/Retr02332/HackerBot#description).
+  * [How to configure HackerBot](https://github.com/Retr02332/HackerBot#description)
 
 #### Made with love by Retr0
