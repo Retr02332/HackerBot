@@ -18,7 +18,7 @@ const requestToApi = (endpoint, h1_user, h1_token, parser) => {
 
     .then(response => response.json())
     .then(body => parser(body))
-    .catch(error => `An error occurred during the request => ${error}`)
+    .catch(error => `An error occurred during the request => ${text.error}`)
 }
 
 exports.requestToApi = requestToApi
