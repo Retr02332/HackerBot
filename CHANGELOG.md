@@ -6,6 +6,21 @@
 
 **1.1** Changed the name of the variable `tokens` to `h1_tokens` to make it easier to read and understand.
 
+Added by: [Carlos Bello (Retr02332)](https://github.com/Retr02332)
+
+**Additions:**
+
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L12
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L34
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L50
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L68
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L83
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L94
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L105
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L121
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L137
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L155
+
 ### Bug Fixes
 
 **2.**
@@ -23,8 +38,10 @@ Solved by:  [Carlos Bello (Retr02332)](https://github.com/Retr02332)
 
 **Changes:**
 * https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L27
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L54-58
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L125-129 
+* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L100
+* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L131
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L54-L58
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L125-L129 
 
 **2.3** All alphabetic user input is normalized to lowercase. Failure to do so caused an error, as the hackerone API expects to receive such lowercase entries in order to operate correctly.
 * https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L44
