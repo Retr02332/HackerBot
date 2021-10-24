@@ -21,14 +21,6 @@ Added by: [Carlos Bello (Retr02332)](https://github.com/Retr02332)
 * https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L137
 * https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L155
 
-**1.2** I have added a **custom error message** that is much more descriptive. This is so that a user can more clearly understand what to do to fix the problem.
-
-Added by: [Carlos Bello (Retr02332)](https://github.com/Retr02332)
-
-**Additions:**
-
-* https://github.com/Retr02332/HackerBot/blob/master/Utils/Http_Utils.js#L21
-
 ### Bug Fixes
 
 **2.**
