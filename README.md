@@ -2,7 +2,7 @@
 <a href="https://github.com/Retr02332/HackerBot"> <img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></a>
 <a href="https://github.com/Retr02332"> <img src="https://img.shields.io/badge/maintainer-Retr02332-blue"></a>
 <a href="https://nodejs.org/en/"> <img src="https://img.shields.io/badge/Made%20with-Node%20JS-1f425f.svg"></a>
-<a href="https://github.com/Retr02332/HackerBot"> <img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&r=r&type=6e&v=1.1.1&x2=0&color=blue"></a>
+<a href="https://github.com/Retr02332/HackerBot"> <img src="https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&r=r&type=6e&v=1.1.2&x2=0&color=blue"></a>
 <a href="https://github.com/Retr02332/HackerBot"> <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
 <a href="https://github.com/Retr02332"> <img src="https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg"></a>
 </p>
