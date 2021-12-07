@@ -3,7 +3,7 @@ function capitalizeFirstLetter(companyName) {
 }
 
 const cutString = (title) => {
-    return (title.length > 50)? title.substr(0,50)+"..." : title
+    return (title?.length > 47)? title.substr(0,47)+"..." : title
 }
 
 exports.cutString = cutString

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "btoa": "^1.2.1",
+    "dotenv": "^10.0.0",
+    "node-fetch": "^2.6.1",
+    "node-telegram-bot-api": "^0.54.0"
+  }
+}

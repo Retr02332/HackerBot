@@ -2,31 +2,31 @@ const strUtils = require('../Utils/StringUtils.js');
 
 const parseReports = ({data}) => {
     let permissionsToSplit = true;
-    let cleanReports = "";
+    let parsedReports = "";
     let reports = data;
     let count = 0
 
     if( !(reports instanceof Array) ) { reports = [reports] }
-    if(reports.length === 10) { permissionsToSplit = false; }
+    if(reports?.length === 10) { permissionsToSplit = false; }
 
     for(let report of reports) {
         template = `\
 Report #${count+1}
 
-            ID: ${report.id}
-            URL: https://hackerone.com/reports/${report.id}
-            Title: ${strUtils.cutString(report.attributes.title)}
-            State: ${report.attributes.state}
-            Score: ${(report.relationships.severity && report.relationships.severity.data.attributes.rating) || "unspecified"} (${report.relationships.severity && report.relationships.severity.data.attributes.score || ''})
-            Reported by: ${report.relationships.reporter.data.attributes.name} (${report.relationships.reporter.data.attributes.username})
-            Reported to: ${strUtils.capitalizeFirstLetter(report.relationships.program.data.attributes.handle)}
-            Vulnerability: ${report.relationships.weakness.data.attributes.name}
-            Created_at: ${report.attributes.created_at}\n\n`
-        cleanReports += template;
+            ID: ${report?.id}
+            URL: https://hackerone.com/reports/${report?.id}
+            Title: ${strUtils.cutString(report?.attributes?.title)}
+            State: ${report?.attributes?.state}
+            Score: ${(report?.relationships?.severity?.data?.attributes?.rating)} (${report?.relationships?.severity?.data?.attributes?.score || ""})
+            Reported by: ${report?.relationships?.reporter?.data?.attributes?.name} (${report?.relationships?.reporter?.data?.attributes?.username})
+            Reported to: ${strUtils.capitalizeFirstLetter(report?.relationships?.program?.data?.attributes?.handle)}
+            Vulnerability: ${report?.relationships?.weakness?.data?.attributes?.name}
+            Created_at: ${report?.attributes?.created_at}\n\n`
+        parsedReports += template;
         count++;
-        if( (permissionsToSplit) && ((count !== 0) && (count % 10) == 0) ) { cleanReports += "SPLIT_HERE\n\n" }
+        if( (permissionsToSplit) && ((count !== 0) && (count % 10) == 0) ) { parsedReports += "SPLIT_HERE\n\n" }
     }
-    return cleanReports
+    return parsedReports
 }
 
 const parseBalance = ({balance}) => {
@@ -34,23 +34,26 @@ const parseBalance = ({balance}) => {
 }
 
 const parseEarnings = (earnings) => {
-    let cleanEarns= "";
+    let permissionsToSplit = true;
+    var earnings = earnings?.data;
+    let parsedEarns= "";
     let count = 1
-
-    if(earnings.data.length !== 0) {
-        for(let earn of earnings.data) {
+    
+    if(earnings?.length !== 0) {
+        for(let earn of earnings) {
             template = `\
 Earn #${count}
     
-                Program: ${earn.relationships.program.data.attributes.name}
-                Report:  ${strUtils.cutString(earn.relationships.bounty.relationships.report.data.attributes.title)} (${earn.relationships.bounty.relationships.report.data.attributes.state || ''})
-                Amount:  ${earn.relationships.bounty.data.attributes.amount} ${earn.relationships.bounty.data.attributes.awarded_currency}
-                Created_at: ${earn.relationships.bounty.relationships.report.data.attributes.created_at}
-            `
-            cleanEarns += template;
+            Program: ${earn?.relationships?.program?.data?.attributes?.name}
+            Report:  ${strUtils.cutString(earn?.relationships?.bounty?.data?.relationships?.report?.data?.attributes?.title) || strUtils.cutString(earn?.relationships?.report_retest_user?.data?.relationships?.report_retest?.data?.relationships?.report?.data?.attributes?.title)}
+            State:  (${earn?.relationships?.bounty?.data?.relationships?.report?.data?.attributes?.state || earn?.relationships?.report_retest_user?.data?.relationships?.report_retest?.data?.relationships?.report?.data?.attributes?.state})
+            Amount:  ${earn?.relationships?.bounty?.data?.attributes?.amount || earn?.attributes.amount} USD
+            Created_at: ${earn?.relationships?.bounty?.data?.relationships?.report?.data?.attributes?.created_at || earn?.attributes.created_at }\n\n`
+            parsedEarns += template;
             count++;
+            if( (permissionsToSplit) && ((count !== 0) && (count % 10) == 0) ) { parsedEarns += "SPLIT_HERE\n\n" }
         }
-        return cleanEarns;
+        return parsedEarns;
     }
     else {
         return "oops, still no earnings :/";
@@ -58,23 +61,28 @@ Earn #${count}
 }
 
 const parsePayouts = (payouts) => {
-    let cleanPayouts= "";
+    let permissionsToSplit = true;
+    var payouts = payouts?.data;
+    let parsedPayouts = "";
     let count = 1
 
-    if(payouts.data.length !== 0) {
-        for(let payout of payouts.data) {
+    if( !(payouts instanceof Array) ) { payouts = [payouts] }
+    if(payouts?.length === 10) { permissionsToSplit = false; }
+
+    if(payouts?.length !== 0) {
+        for(let payout of payouts) {
             template = `\
 Payout #${count}
     
-                Program: ${payout.payout_provider}
-                Status:  ${payout.status}
-                Amount:  ${payout.amount}
-                Paid at: ${payout.paid_out_at}
-            `
-            cleanPayouts += template;
+            Program: ${payout?.payout_provider}
+            Status:  ${payout?.status}
+            Amount:  ${payout?.amount}
+            Paid at: ${payout?.paid_out_at}\n\n`
+            parsedPayouts += template;
             count++;
+            if( (permissionsToSplit) && ((count !== 0) && (count % 10) == 0) ) { parsedPayouts += "SPLIT_HERE\n\n" }
         }
-        return cleanPayouts;
+        return parsedPayouts;
     }
     else {
         return "oops, still no payments :/";
@@ -83,23 +91,23 @@ Payout #${count}
 
 const parseWeaks = ({data}) => {
     let permissionsToSplit = true;
-    let cleanWeaks= "";
+    let parsedWeaks= "";
     let weaks = data;
     let count = 0
 
-    if(weaks.length !== 0) {
-        if(weaks.length === 54) { permissionsToSplit = false; }
+    if(weaks?.length !== 0) {
+        if(weaks?.length === 54) { permissionsToSplit = false; }
         for(let weak of weaks) {
             template = `\
 Weak #${count+1}
 
-            ID: ${weak.id}
-            Type: ${strUtils.cutString(weak.attributes.name)}\n\n`
-            cleanWeaks += template;
+            ID: ${weak?.id}
+            Type: ${strUtils.cutString(weak?.attributes?.name)}\n\n`
+            parsedWeaks += template;
             count++;
-            if( (permissionsToSplit) && ((count !== 0) && (count % 54) == 0) ) { cleanWeaks += "SPLIT_HERE\n\n" }
+            if( (permissionsToSplit) && ((count !== 0) && (count % 54) == 0) ) { parsedWeaks += "SPLIT_HERE\n\n" }
         }
-        return cleanWeaks;
+        return parsedWeaks;
     }
     else {
         return "oops, you still haven't found any weaknesses :/";
@@ -108,29 +116,29 @@ Weak #${count+1}
 
 const parsePrograms = (programs) => {
     let permissionsToSplit = true;
-    let cleanPrograms = "";
+    let parsedPrograms = "";
     let count = 0
 
-    if(programs.data) { programs = programs.data }
+    if(programs?.data) { programs = programs?.data }
     else { programs = [programs] }
 
-    if(programs.length === 25) { permissionsToSplit = false; }
+    if(programs?.length === 22) { permissionsToSplit = false; }
 
     for(let program of programs) {
         template = `\
 Program #${count+1}
 
-        ID: ${program.id}
-        Program: ${strUtils.cutString(strUtils.capitalizeFirstLetter(program.attributes.name))}
-        State: ${(program.attributes.state && program.attributes.state.split("_")[0]) || null}
-        Currency: ${(program.attributes.currency && program.attributes.currency.toUpperCase()) || null}
-        Offer Bounty: ${program.attributes.offers_bounties || null}
-        Bounty Splitting: ${program.attributes.allows_bounty_splitting}\n\n`
-        cleanPrograms += template;
+            ID: ${program?.id}
+            Program: ${strUtils.cutString(strUtils.capitalizeFirstLetter(program?.attributes?.name))}
+            State: ${program?.attributes?.state?.split("_")[0]}
+            Currency: USD
+            Offer Bounty: ${program?.attributes?.offers_bounties}
+            Bounty Splitting: ${program?.attributes?.allows_bounty_splitting}\n\n`
+            parsedPrograms += template;
         count++;
-        if( (permissionsToSplit) && ((count !== 0) && (count % 25) == 0) ) { cleanPrograms += "SPLIT_HERE\n\n" }
+        if( (permissionsToSplit) && ((count !== 0) && (count % 22) == 0) ) { parsedPrograms += "SPLIT_HERE\n\n" }
     }
-    return cleanPrograms;
+    return parsedPrograms;
 }
 
 module.exports = { parseReports, parseBalance, parseEarnings, 

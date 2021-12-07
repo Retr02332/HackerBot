@@ -4,7 +4,7 @@ const token = envConfig.parsed.token;
 const bot = new TelegramBot(token, {polling: true});
 
 const api = require('./Objectives/endpoints.js');
-const httpUtils = require('./Utils/Http_Utils.js');
+const httpUtils = require('./Utils/HttpUtils.js');
 const parsers = require('./Parsers/parsers.js');
 const text = require('./Text/Text.js');
 
@@ -41,7 +41,7 @@ bot.onText(/\/config/, (msg) => {
 });
 
 bot.onText(/\/reports/, (msg) => {
-    option = msg.text.split(" ")[1].toLowerCase();
+    option = msg.text.split(" ")[1]?.toLowerCase();
 
     if(option === "all") {
         httpUtils.requestToApi(...[
@@ -110,10 +110,10 @@ bot.onText(/\/payouts/, (msg) => {
 });
 
 bot.onText(/\/programs/, (msg) => {
-    option = msg.text.split(" ")[1].toLowerCase();
+    option = msg.text.split(" ")[1]?.toLowerCase();
 
     if(option === "weak_unique") {
-        programName = msg.text.split(" ")[2].toLowerCase();
+        programName = msg.text.split(" ")[2]?.toLowerCase();
 
         response = httpUtils.requestToApi(...[
             api.endpoints.programs.weaknesses_unique.replace("HANDLE", programName),
@@ -147,7 +147,7 @@ bot.onText(/\/programs/, (msg) => {
         .catch(error   => bot.sendMessage(msg.chat.id, error))
     }
     else if(option === "unique") {
-        programName = msg.text.split(" ")[2].toLowerCase();
+        programName = msg.text.split(" ")[2]?.toLowerCase();
 
         response = httpUtils.requestToApi(...[
             api.endpoints.programs.unique.replace("HANDLE", programName),
