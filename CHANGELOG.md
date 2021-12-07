@@ -1,52 +1,43 @@
-# v1.1.1 (2021-07-20)
+# v1.1.2 (2021-12-07)
 
 ### Internal Changes
 
 **1.**
 
-**1.1** Changed the name of the variable `tokens` to `h1_tokens` to make it easier to read and understand.
+**1.1** Changed the name of the file `Http_Utils.js` to `HttpUtils.js` programming practices.
 
 Added by: [Carlos Bello (Retr02332)](https://github.com/Retr02332)
 
 **Additions:**
 
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L12
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L34
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L50
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L68
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L83
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L94
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L105
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L121
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L137
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L155
+* https://github.com/Retr02332/HackerBot/blob/master/Utils/HttpUtils.js
 
 ### Bug Fixes
 
 **2.**
 
-**2.1** Checked that the **severity** attribute in `report.relationships.severity` exists before being used. This was causing any user using the `/reports all` command to receive an error instead of the corresponding data.
+**2.1** The optional chaining operator is implemented. This is to control the inconsistency of Hackerone API responses and thus avoid errors that may disrupt the user experience.
 
 Solved by:  [Carlos Bello (Retr02332)](https://github.com/Retr02332)
 
 **Changes:**
-* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L20
+* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js
+* https://github.com/Retr02332/HackerBot/blob/master/Utils/StringUtils.js
+* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js
 
-**2.2** Split messages into parts when they are very long. Failure to do so caused data not to reach the user. Since the Telegram API only allows certain lengths in the message.
+**2.2** Content length controllers were implemented in all missing parsers. This was done because Telegram does not support messages that are too long. Therefore, what the controller does is to split the message and send it in several messages.
 
 Solved by:  [Carlos Bello (Retr02332)](https://github.com/Retr02332)
 
 **Changes:**
-* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L27
-* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L100
-* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js#L131
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L54-L58
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L125-L129 
+* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js
 
-**2.3** All alphabetic user input is normalized to lowercase. Failure to do so caused an error, as the hackerone API expects to receive such lowercase entries in order to operate correctly.
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L44
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L116
-* https://github.com/Retr02332/HackerBot/blob/master/HackerBot.js#L150
+**2.3** Fixed the problem of displaying messages returned by some parsers. Some parsers were sending data in a way that was unpleasant and difficult to read for the user. In this new version of Hackerbot this problem no longer exists.
+
+Solved by:  [Carlos Bello (Retr02332)](https://github.com/Retr02332)
+
+**Changes:**
+* https://github.com/Retr02332/HackerBot/blob/master/Parsers/parsers.js
 
 ### New Features
 
